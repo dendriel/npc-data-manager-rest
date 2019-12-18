@@ -1,7 +1,9 @@
 package com.rozsa.model;
 
+import org.bson.types.ObjectId;
+
 public class BaseNpc {
-    private int id;
+    private ObjectId id;
 
     private String name;
 
@@ -16,7 +18,7 @@ public class BaseNpc {
     public BaseNpc() {
     }
 
-    public BaseNpc(int id) {
+    public BaseNpc(ObjectId id) {
         this.id = id;
         status = new Status();
         sprite = new Sprite();
@@ -40,11 +42,11 @@ public class BaseNpc {
         this.behaviorId = behaviorId;
     }
 
-    public int getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

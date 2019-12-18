@@ -9,6 +9,7 @@ import com.rozsa.model.Npc;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -52,16 +53,19 @@ public class MongoConnection implements DatabaseConnection {
 
         // Accessing the database
         MongoDatabase plainDb = client.getDatabase(dbName);
-        // using this approach to avoid losing the posibility to set the mongoDb server port.
+        // using this approach to avoid losing the possibility to set the mongoDb server port.
         db = plainDb.withCodecRegistry(pojoCodecRegistry);
     }
 
-    public void save(Npc npc) {
-        MongoCollection<Npc> coll = db.getCollection("npcs", Npc.class);
-        coll.insertOne(npc);
+    public <T> T save(T obj, Class<T> kind, String collection) {
+        assert obj != null : String.format("Can't save because obj is null!");
+
+        MongoCollection<T> coll = db.getCollection(collection, kind);
+        coll.insertOne(obj);
+        return obj;
     }
 
-    public Npc findById(int id) {
+    public Npc findById(ObjectId id) {
         MongoCollection<Npc> coll = db.getCollection("npcs", Npc.class);
         Document targetDoc = new Document("_id", id);
         FindIterable<Npc> iterDoc = coll.find(targetDoc);

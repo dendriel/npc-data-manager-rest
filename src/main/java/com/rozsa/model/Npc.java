@@ -1,6 +1,7 @@
 package com.rozsa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +14,13 @@ public class Npc extends BaseNpc {
 
     private int currMessageId;
 
-    public Npc() {}
+    public Npc() {
+        interactionOrder = new ArrayList<>();
+        interaction = new ArrayList<>();
+        currMessageId = 0;
+    }
 
-    public Npc(int id) {
+    public Npc(ObjectId id) {
         super(id);
         interactionOrder = new ArrayList<>();
         interaction = new ArrayList<>();

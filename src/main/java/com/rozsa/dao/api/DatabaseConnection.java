@@ -1,9 +1,11 @@
 package com.rozsa.dao.api;
 
 import com.rozsa.model.Npc;
+import org.bson.types.ObjectId;
 
 public interface DatabaseConnection {
-    void save(Npc npc);
+    <T> T save(T npc, Class<T> kind, String collection);
 
-    Npc findById(int id);
+    // TODO: make if generic
+    Npc findById(ObjectId id);
 }
