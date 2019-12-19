@@ -5,6 +5,8 @@ import org.bson.types.ObjectId;
 public class BaseNpc {
     private ObjectId id;
 
+    private long uid;
+
     private String name;
 
     private int behaviorId;
@@ -48,6 +50,14 @@ public class BaseNpc {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
     }
 
     public Status getStatus() {

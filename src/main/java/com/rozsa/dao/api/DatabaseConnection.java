@@ -1,11 +1,15 @@
 package com.rozsa.dao.api;
 
-import com.rozsa.model.Npc;
 import org.bson.types.ObjectId;
+
+import java.util.List;
 
 public interface DatabaseConnection {
     <T> T save(T npc, Class<T> kind, String collection);
 
-    // TODO: make if generic
-    Npc findById(ObjectId id);
+    <T> T findById(ObjectId id, Class<T> kind, String collection);
+
+    <T> List<T> findAll(Class<T> kind, String collection);
+
+    <T> boolean deleteById(ObjectId id, Class<T> kind, String collection);
 }
