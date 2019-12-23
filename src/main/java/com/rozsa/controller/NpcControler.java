@@ -3,6 +3,7 @@ package com.rozsa.controller;
 import com.rozsa.dao.NpcDao;
 import com.rozsa.model.Npc;
 import org.bson.types.ObjectId;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ public class NpcControler {
         this.npcDao = npcDao;
     }
 
+    //@CrossOrigin(origins = "http://localhost:9090")
     @RequestMapping("/npc/getAll")
     public List<Npc> getAll() {
         return npcDao.findAll();

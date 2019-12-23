@@ -1,2 +1,2 @@
 # npc-data-manager-rest
-Npc Data Manager using REST, Angular and Mongo
+Npc Data Manager REST backend.
