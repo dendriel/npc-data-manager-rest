@@ -3,10 +3,7 @@ package com.rozsa.controller;
 import com.rozsa.dao.NpcDao;
 import com.rozsa.model.Npc;
 import org.bson.types.ObjectId;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,11 +26,16 @@ public class NpcControler {
         return npcDao.findById(id);
     }
 
+    @RequestMapping("/npc/getById")
+    public Npc getById(int id) {
+        return npcDao.findAll().get(0);
+    }
+
     @RequestMapping("/npc/save")
     //public void save(@RequestParam(value="npc") Npc npc) {
-    public void save() {
+    public void save(@RequestBody Npc npc) {
         //System.out.println("Save npc " + npc.getName());
-        npcDao.save(new Npc());
+        npcDao.save(npc);
     }
 
     @RequestMapping("/npc/delete")

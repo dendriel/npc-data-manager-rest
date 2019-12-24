@@ -1,12 +1,12 @@
 package com.rozsa.dao.persistence;
 
-import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.rozsa.dao.api.DatabaseConnection;
+import com.rozsa.dao.api.Identifiable;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -21,11 +21,6 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 @Service
 public class MongoConnection implements DatabaseConnection {
-
-    private final static String countersCollectionName = "counters";
-
-    private final static String countersCollectionSequenceFieldName = "uid";
-
     private final MongoClient client;
 
     private final MongoDatabase db;
@@ -56,22 +51,17 @@ public class MongoConnection implements DatabaseConnection {
         return plainDb.withCodecRegistry(pojoCodecRegistry);
     }
 
-    private long getNextUniqueId() {
-//        MongoCollection<Document> coll = db.getCollection(countersCollectionName);
-//        Document targetDoc = new Document("_id", countersCollectionSequenceFieldName);
-
-
-        // TODO:
-        https://github.com/SouthGreenPlatform/mgdb/blob/master/src/fr/cirad/mgdb/model/mongo/maintypes/AutoIncrementCounter.java
-        return 1;
-    }
-
-    public <T> T save(T obj, Class<T> kind, String collection) {
+    public <T> void create(T obj, Class<T> kind, String collection) {
         assert obj != null : String.format("Can't save null obj!");
         MongoCollection<T> coll = db.getCollection(collection, kind);
         coll.insertOne(obj);
+    }
 
-        return obj;
+    public <T extends Identifiable> void update(T obj, Class<T> kind, String collection) {
+        assert obj != null : String.format("Can't update null obj!");
+        MongoCollection<T> coll = db.getCollection(collection, kind);
+        Document targetDoc = new Document("_id", obj.getObjectId());
+        coll.replaceOne(targetDoc, obj);
     }
 
     public <T> T findById(ObjectId id, Class<T> kind, String collection) {

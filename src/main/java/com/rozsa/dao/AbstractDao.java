@@ -1,11 +1,12 @@
 package com.rozsa.dao;
 
 import com.rozsa.dao.api.DatabaseConnection;
+import com.rozsa.dao.api.Identifiable;
 import org.bson.types.ObjectId;
 
 import java.util.List;
 
-public abstract class AbstractDao<TType> {
+public abstract class AbstractDao<TType extends Identifiable> {
     protected final DatabaseConnection db;
 
     protected final String collectionName;
@@ -18,9 +19,12 @@ public abstract class AbstractDao<TType> {
         this.collectionName = collectionName;
     }
 
-    public TType save(TType obj) {
-        db.save(obj, objKind, collectionName);
-        return obj;
+    public void save(TType obj) {
+        if (obj.getObjectId() == null) {
+            db.create(obj, objKind, collectionName);
+            return;
+        }
+        db.update(obj, objKind, collectionName);
     }
 
     public TType findById(ObjectId id) {

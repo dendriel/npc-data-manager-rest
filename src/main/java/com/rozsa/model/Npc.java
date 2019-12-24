@@ -1,13 +1,28 @@
 package com.rozsa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rozsa.dao.api.Identifiable;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Npc extends BaseNpc {
+public class Npc implements Identifiable<ObjectId> {
+    private ObjectId id;
+
+    private long uid;
+
+    private String name;
+
+    private int behaviorId;
+
+    private boolean isFacingRight;
+
+    private Status status;
+
+    private Sprite sprite;
+
     private List<Integer> interactionOrder;
 
     private List<Interaction> interaction;
@@ -21,7 +36,11 @@ public class Npc extends BaseNpc {
     }
 
     public Npc(ObjectId id) {
-        super(id);
+        this.id = id;
+        status = new Status();
+        sprite = new Sprite();
+        name = "FIX ME";
+        behaviorId = 2;
         interactionOrder = new ArrayList<>();
         interaction = new ArrayList<>();
         currMessageId = 0;
@@ -135,5 +154,72 @@ public class Npc extends BaseNpc {
          * return ++newMessageIndex;
          * but it is harder to read and we aren't short of coding lines =]
          */
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getBehaviorId() {
+        return behaviorId;
+    }
+
+    public void setBehaviorId(int behaviorId) {
+        this.behaviorId = behaviorId;
+    }
+
+    public ObjectId getObjectId() {
+        return id;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+
+
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite spriteData) {
+        this.sprite = spriteData;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public boolean isFacingRight() {
+        return isFacingRight;
+    }
+
+    public void setFacingRight(boolean facingRight) {
+        isFacingRight = facingRight;
     }
 }
