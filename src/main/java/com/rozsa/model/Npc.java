@@ -2,14 +2,17 @@ package com.rozsa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rozsa.dao.api.Identifiable;
+import org.bson.BsonType;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Npc implements Identifiable<ObjectId> {
-    private ObjectId id;
+public class Npc implements Identifiable<String> {
+    private String id;
 
     private long uid;
 
@@ -35,7 +38,7 @@ public class Npc implements Identifiable<ObjectId> {
         currMessageId = 0;
     }
 
-    public Npc(ObjectId id) {
+    public Npc(String id) {
         this.id = id;
         status = new Status();
         sprite = new Sprite();
@@ -65,6 +68,7 @@ public class Npc implements Identifiable<ObjectId> {
     }
 
     @JsonIgnore
+    @BsonIgnore
     public Interaction getInteractionByid(int id) {
         return interaction
                 .stream()
@@ -74,6 +78,7 @@ public class Npc implements Identifiable<ObjectId> {
     }
 
     @JsonIgnore
+    @BsonIgnore
     public List<Integer> getInteractionMessagesIds() {
         ArrayList<Integer> allMessagesIds = new ArrayList<>();
         interaction.forEach(i -> allMessagesIds.addAll(i.getMessagesIds()));
@@ -96,6 +101,7 @@ public class Npc implements Identifiable<ObjectId> {
         interaction.addMessage(newMessageId);
     }
 
+    @BsonIgnore
     public List<Integer> getInteractionOrder()
     {
         return interactionOrder;
@@ -172,15 +178,16 @@ public class Npc implements Identifiable<ObjectId> {
         this.behaviorId = behaviorId;
     }
 
-    public ObjectId getObjectId() {
+    //@BsonIgnore
+    public String getObjectId() {
         return id;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

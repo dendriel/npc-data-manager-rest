@@ -32,11 +32,17 @@ public class NpcControler {
     }
 
     @RequestMapping("/npc/save")
-    //public void save(@RequestParam(value="npc") Npc npc) {
     public void save(@RequestBody Npc npc) {
         //System.out.println("Save npc " + npc.getName());
         npcDao.save(npc);
     }
+
+    @RequestMapping("/npc/testsave")
+    public void test() {
+        //System.out.println("Save npc " + npc.getName());
+        npcDao.save(new Npc());
+    }
+
 
     @RequestMapping("/npc/delete")
     public boolean delete(@RequestParam(value="id") ObjectId id) {
