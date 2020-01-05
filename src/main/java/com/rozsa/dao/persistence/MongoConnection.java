@@ -16,18 +16,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
-import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
-import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
-import static org.bson.codecs.pojo.Conventions.ANNOTATION_CONVENTION;
+import static org.bson.codecs.configuration.CodecRegistries.*;
 
 @Service
 public class MongoConnection implements DatabaseConnection {
     private final MongoClient client;
 
     private final MongoDatabase db;
-
-    private final static String SEQUENCE_COLLECTION_NAME = "counters";
 
     public MongoConnection() {
         // TODO: inject connection parameters.
@@ -37,7 +32,6 @@ public class MongoConnection implements DatabaseConnection {
 
         client = new MongoClient(ip, port);
         db = connect(dbName);
-        createCountersCollection();
     }
 
     // http://mongodb.github.io/mongo-java-driver/3.6/bson/codecs/
@@ -58,52 +52,7 @@ public class MongoConnection implements DatabaseConnection {
         return plainDb.withCodecRegistry(pojoCodecRegistry);
     }
 
-    private void createCountersCollection() {
-//        Document document = new Document();
-//        document.append("_id", "uniqueid");
-//        document.append("seq", 1);
-
-        SequenceCounter counter = new SequenceCounter();
-        counter.setId("uniqueid");
-        counter.setSeq(1);
-        MongoCollection<SequenceCounter> coll = db.getCollection(SEQUENCE_COLLECTION_NAME, SequenceCounter.class);
-        coll.insertOne(counter);
-    }
-
-    private class SequenceCounter {
-        private String id;
-
-        private long seq;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public long getSeq() {
-            return seq;
-        }
-
-        public void setSeq(long seq) {
-            this.seq = seq;
-        }
-    }
-
-    public Object getNextSequence() {
-        MongoCollection coll = db.getCollection(SEQUENCE_COLLECTION_NAME, SequenceCounter.class);
-        Document searchQuery = new Document("_id", "uniqueid");
-        Document increase = new Document("seq", 1);
-        Document updateQuery = new Document("$inc", increase);
-        SequenceCounter result = (SequenceCounter)coll.findOneAndUpdate(searchQuery, updateQuery);
-
-        return result.getSeq();
-    }
-
     public <T> void create(T obj, Class<T> kind, String collection) {
-        System.out.println("Next sequence is: " + getNextSequence());
         assert obj != null : String.format("Can't save null obj!");
         MongoCollection<T> coll = db.getCollection(collection, kind);
         coll.insertOne(obj);

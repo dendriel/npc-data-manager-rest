@@ -1,6 +1,7 @@
 package com.rozsa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
 
 import java.util.Objects;
 
@@ -44,6 +45,7 @@ public class Color {
         this.b = b;
     }
 
+    @BsonIgnore
     @JsonIgnore
     public java.awt.Color getColor() {
         return new java.awt.Color(r, g, b);

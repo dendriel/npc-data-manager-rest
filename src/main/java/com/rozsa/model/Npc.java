@@ -2,19 +2,14 @@ package com.rozsa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rozsa.dao.api.Identifiable;
-import org.bson.BsonType;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
-import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Npc implements Identifiable<String> {
-    private String id;
-
-    private long uid;
+public class Npc implements Identifiable<ObjectId> {
+    private ObjectId id;
 
     private String name;
 
@@ -24,142 +19,35 @@ public class Npc implements Identifiable<String> {
 
     private Status status;
 
-    private Sprite sprite;
+    private Sprite spriteData;
 
     private List<Integer> interactionOrder;
 
-    private List<Interaction> interaction;
+    private List<Interaction> interactionData;
 
     private int currMessageId;
 
     public Npc() {
         interactionOrder = new ArrayList<>();
-        interaction = new ArrayList<>();
-        currMessageId = 0;
-    }
-
-    public Npc(String id) {
-        this.id = id;
+        interactionData = new ArrayList<>();
         status = new Status();
-        sprite = new Sprite();
-        name = "FIX ME";
-        behaviorId = 2;
-        interactionOrder = new ArrayList<>();
-        interaction = new ArrayList<>();
-        currMessageId = 0;
+        spriteData = new Sprite();
     }
 
-    public int getCurrMessageId() {
-        return currMessageId;
+    public List<Interaction> getInteractionData() {
+        return interactionData;
     }
 
-    public void setCurrMessageId(int currMessageId) {
-        this.currMessageId = currMessageId;
+    public void setInteractionData(List<Interaction> Interaction) {
+        this.interactionData = Interaction;
     }
 
-    public List<Interaction> getInteraction()
-    {
-        List<Interaction> orderedInteraction = interactionOrder
-                .stream()
-                .map(id -> getInteractionByid(id))
-                .collect(Collectors.toList());
-
-        return orderedInteraction;
-    }
-
-    @JsonIgnore
-    @BsonIgnore
-    public Interaction getInteractionByid(int id) {
-        return interaction
-                .stream()
-                .filter(i -> i.getId() == id)
-                .findFirst()
-                .orElse(null);
-    }
-
-    @JsonIgnore
-    @BsonIgnore
-    public List<Integer> getInteractionMessagesIds() {
-        ArrayList<Integer> allMessagesIds = new ArrayList<>();
-        interaction.forEach(i -> allMessagesIds.addAll(i.getMessagesIds()));
-        return allMessagesIds;
-    }
-
-    public void removeInteractionMessage(int id) {
-        Interaction targetInteraction = interaction
-                                                .stream()
-                                                .filter(i -> i.containsMessageId(id))
-                                                .findFirst()
-                                                .orElse(null);
-
-        targetInteraction.removeMessage(id);
-    }
-
-    public void addMessageToInteraction(int interactionId) {
-        Interaction interaction = getInteractionByid(interactionId);
-        int newMessageId = findNextMessageId();
-        interaction.addMessage(newMessageId);
-    }
-
-    @BsonIgnore
-    public List<Integer> getInteractionOrder()
-    {
+    public List<Integer> getInteractionOrder() {
         return interactionOrder;
     }
 
-    @JsonIgnore
-    public String getInteractionOrderAsText()
-    {
-        return interactionOrder
-                .toString()
-                .replace("[", "")
-                .replace("]", "");
-    }
-
-    public void setInteraction(List<Interaction> Interaction)
-    {
-        this.interaction = Interaction;
-    }
-
-    public void setInteractionOrder(List<Integer> interactionOrder)
-    {
+    public void setInteractionOrder(List<Integer> interactionOrder) {
         this.interactionOrder = interactionOrder;
-    }
-
-    public void removeInteraction(int id) {
-        interaction.removeIf(i -> i.getId() == id);
-        interactionOrder.removeIf(i -> i == id);
-    }
-
-    public Interaction addInteraction() {
-        int nextId = findNextInteractionId();
-        Interaction newData = new Interaction(nextId);
-        interaction.add(newData);
-        interactionOrder.add(nextId);
-
-        return newData;
-    }
-
-    private int findNextInteractionId() {
-        int highestId = 0;
-        for (Interaction data : interaction) {
-            int currId = data.getId();
-            if (currId > highestId) {
-                highestId = currId;
-            }
-        }
-
-        return highestId + 1;
-    }
-
-    private int findNextMessageId() {
-        int newMessageId = currMessageId + 1;
-        currMessageId++;
-        return newMessageId;
-        /* It is all about clarity. We could have used just this line:
-         * return ++newMessageIndex;
-         * but it is harder to read and we aren't short of coding lines =]
-         */
     }
 
     public String getName() {
@@ -178,27 +66,28 @@ public class Npc implements Identifiable<String> {
         this.behaviorId = behaviorId;
     }
 
-    //@BsonIgnore
-    public String getObjectId() {
+    @JsonIgnore
+    @BsonIgnore
+    public ObjectId getObjectId() {
         return id;
     }
 
-    public String getId() {
+    @JsonIgnore
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(String id) {
+    @JsonIgnore
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
-
-
-    public long getUid() {
-        return uid;
+    public String getIdAsText() {
+        return id.toString();
     }
 
-    public void setUid(long uid) {
-        this.uid = uid;
+    public void setIdAsText(String idAsText) {
+        id = new ObjectId(idAsText);
     }
 
     public Status getStatus() {
@@ -209,12 +98,12 @@ public class Npc implements Identifiable<String> {
         this.status = status;
     }
 
-    public Sprite getSprite() {
-        return sprite;
+    public Sprite getSpriteData() {
+        return spriteData;
     }
 
-    public void setSprite(Sprite spriteData) {
-        this.sprite = spriteData;
+    public void setSpriteData(Sprite spriteData) {
+        this.spriteData = spriteData;
     }
 
     @Override
@@ -228,5 +117,15 @@ public class Npc implements Identifiable<String> {
 
     public void setFacingRight(boolean facingRight) {
         isFacingRight = facingRight;
+    }
+
+    // Remove when the new npc data manager is fully working.
+    @Deprecated
+    public int getCurrMessageId() {
+        return currMessageId;
+    }
+
+    public void setCurrMessageId(int currMessageId) {
+        this.currMessageId = currMessageId;
     }
 }

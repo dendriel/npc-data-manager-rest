@@ -11,6 +11,8 @@ public class Event {
 
     private int targetY;
 
+    private String targetEntity;
+
     public EventType getType() {
         if (type == null) {
             type = EventType.SWITCH;
@@ -52,5 +54,13 @@ public class Event {
 
     public void setTargetY(int targetY) {
         this.targetY = targetY;
+    }
+
+    public String getTargetEntity() {
+        return targetEntity;
+    }
+
+    public void setTargetEntity(String targetEntity) {
+        this.targetEntity = targetEntity;
     }
 }

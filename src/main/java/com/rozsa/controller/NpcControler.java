@@ -1,10 +1,14 @@
 package com.rozsa.controller;
 
+import com.rozsa.business.ExportNpcs;
+import com.rozsa.business.ImportNpcs;
 import com.rozsa.dao.NpcDao;
 import com.rozsa.model.Npc;
+import com.rozsa.model.NpcsHolder;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -33,7 +37,7 @@ public class NpcControler {
 
     @RequestMapping("/npc/save")
     public void save(@RequestBody Npc npc) {
-        //System.out.println("Save npc " + npc.getName());
+        System.out.println("Save npc " + npc.getName());
         npcDao.save(npc);
     }
 
@@ -48,5 +52,21 @@ public class NpcControler {
     public boolean delete(@RequestParam(value="id") ObjectId id) {
         System.out.println("Delete npc " + id);
         return npcDao.deleteById(id);
+    }
+
+    @RequestMapping("/npc/import")
+    public int importFromFile(String filePath) {
+        filePath = "E:\\workspace\\Java\\the-quest\\src\\com\\thequest\\resources\\data\\npcs_data.json";
+        System.out.println("Import data into database from " + filePath);
+        ImportNpcs importNpcs = new ImportNpcs(npcDao, filePath);
+        return importNpcs.execute();
+    }
+
+    @RequestMapping("/npc/export")
+    public int exportToFile(@RequestBody String filePath) throws IOException {
+        System.out.println("Export data into database from " + filePath);
+        List<Npc> npcs = npcDao.findAll();
+        ExportNpcs exportNpcs = new ExportNpcs(filePath, npcs);
+        return exportNpcs.execute();
     }
 }

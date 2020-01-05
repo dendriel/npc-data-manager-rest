@@ -5,6 +5,7 @@ public enum InteractionType {
     DIALOG,
     MERCHANT,
     GIVE_ITEM,
-    TELEPORT,
     PLAY_SOUND,
+    TELEPORT,
+    REMOVE_QUEST_ITEM,
 }
