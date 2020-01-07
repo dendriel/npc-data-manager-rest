@@ -19,12 +19,11 @@ public abstract class AbstractDao<TType extends Identifiable> {
         this.collectionName = collectionName;
     }
 
-    public void save(TType obj) {
+    public TType save(TType obj) {
         if (obj.getObjectId() == null) {
-            db.create(obj, objKind, collectionName);
-            return;
+            return db.create(obj, objKind, collectionName);
         }
-        db.update(obj, objKind, collectionName);
+        return db.update(obj, objKind, collectionName);
     }
 
     public void save(List<TType> obj) {

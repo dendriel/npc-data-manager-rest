@@ -87,7 +87,9 @@ public class Npc implements Identifiable<ObjectId> {
     }
 
     public void setIdAsText(String idAsText) {
-        id = new ObjectId(idAsText);
+        if (idAsText != null && !idAsText.isEmpty()) {
+            id = new ObjectId(idAsText);
+        }
     }
 
     public Status getStatus() {

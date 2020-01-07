@@ -5,9 +5,9 @@ import org.bson.types.ObjectId;
 import java.util.List;
 
 public interface DatabaseConnection {
-    <T> void create(T npc, Class<T> kind, String collection);
+    <T> T create(T npc, Class<T> kind, String collection);
 
-    <T extends Identifiable> void update(T obj, Class<T> kind, String collection);
+    <T extends Identifiable> T update(T obj, Class<T> kind, String collection);
 
     <T> T findById(ObjectId id, Class<T> kind, String collection);
 

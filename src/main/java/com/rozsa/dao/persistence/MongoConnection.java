@@ -52,17 +52,19 @@ public class MongoConnection implements DatabaseConnection {
         return plainDb.withCodecRegistry(pojoCodecRegistry);
     }
 
-    public <T> void create(T obj, Class<T> kind, String collection) {
+    public <T> T create(T obj, Class<T> kind, String collection) {
         assert obj != null : String.format("Can't save null obj!");
         MongoCollection<T> coll = db.getCollection(collection, kind);
         coll.insertOne(obj);
+        return obj;
     }
 
-    public <T extends Identifiable> void update(T obj, Class<T> kind, String collection) {
+    public <T extends Identifiable> T update(T obj, Class<T> kind, String collection) {
         assert obj != null : String.format("Can't update null obj!");
         MongoCollection<T> coll = db.getCollection(collection, kind);
         Document targetDoc = new Document("_id", obj.getObjectId());
         coll.replaceOne(targetDoc, obj);
+        return obj;
     }
 
     public <T> T findById(ObjectId id, Class<T> kind, String collection) {

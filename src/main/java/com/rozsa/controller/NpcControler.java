@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 import java.util.List;
 
 @RestController
@@ -36,9 +37,9 @@ public class NpcControler {
     }
 
     @RequestMapping("/npc/save")
-    public void save(@RequestBody Npc npc) {
+    public Npc save(@RequestBody Npc npc) {
         System.out.println("Save npc " + npc.getName());
-        npcDao.save(npc);
+        return npcDao.save(npc);
     }
 
     @RequestMapping("/npc/testsave")
@@ -49,8 +50,15 @@ public class NpcControler {
 
 
     @RequestMapping("/npc/delete")
-    public boolean delete(@RequestParam(value="id") ObjectId id) {
-        System.out.println("Delete npc " + id);
+    public boolean delete(@RequestParam(value="id") String idAsText) {
+        System.out.println("Delete npc " + idAsText);
+
+        if (idAsText == null || idAsText.isEmpty()) {
+            throw new InvalidParameterException("Null or empty NPC id!");
+        }
+
+        ObjectId id = new ObjectId(idAsText);
+
         return npcDao.deleteById(id);
     }
 
