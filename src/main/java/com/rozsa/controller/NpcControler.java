@@ -63,8 +63,7 @@ public class NpcControler {
     }
 
     @RequestMapping("/npc/import")
-    public int importFromFile(String filePath) {
-        filePath = "E:\\workspace\\Java\\the-quest\\src\\com\\thequest\\resources\\data\\npcs_data.json";
+    public int importFromFile(@RequestBody String filePath) {
         System.out.println("Import data into database from " + filePath);
         ImportNpcs importNpcs = new ImportNpcs(npcDao, filePath);
         return importNpcs.execute();

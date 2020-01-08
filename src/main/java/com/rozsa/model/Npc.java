@@ -11,6 +11,8 @@ import java.util.List;
 public class Npc implements Identifiable<ObjectId> {
     private ObjectId id;
 
+    private long uid;
+
     private String name;
 
     private int behaviorId;
@@ -24,8 +26,6 @@ public class Npc implements Identifiable<ObjectId> {
     private List<Integer> interactionOrder;
 
     private List<Interaction> interactionData;
-
-    private int currMessageId;
 
     public Npc() {
         interactionOrder = new ArrayList<>();
@@ -92,6 +92,14 @@ public class Npc implements Identifiable<ObjectId> {
         }
     }
 
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -119,15 +127,5 @@ public class Npc implements Identifiable<ObjectId> {
 
     public void setFacingRight(boolean facingRight) {
         isFacingRight = facingRight;
-    }
-
-    // Remove when the new npc data manager is fully working.
-    @Deprecated
-    public int getCurrMessageId() {
-        return currMessageId;
-    }
-
-    public void setCurrMessageId(int currMessageId) {
-        this.currMessageId = currMessageId;
     }
 }
