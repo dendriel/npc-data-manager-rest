@@ -15,6 +15,8 @@ public class Npc implements Identifiable<ObjectId> {
 
     private String name;
 
+    private String mapName;
+
     private int behaviorId;
 
     private boolean isFacingRight;
@@ -90,6 +92,14 @@ public class Npc implements Identifiable<ObjectId> {
         if (idAsText != null && !idAsText.isEmpty()) {
             id = new ObjectId(idAsText);
         }
+    }
+
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMapName(String mapName) {
+        this.mapName = mapName;
     }
 
     public long getUid() {
