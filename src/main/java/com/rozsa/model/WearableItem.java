@@ -26,4 +26,14 @@ public class WearableItem extends Item {
     public void setStatus(WearableStatus status) {
         this.status = status;
     }
+
+    public static WearableItem from(GenericItem generic) {
+        WearableItem item = new WearableItem();
+        Item.copyFrom(item, generic);
+
+        item.setWearableSlots(generic.getWearableSlots());
+        item.setStatus(generic.getStatus());
+
+        return item;
+    }
 }

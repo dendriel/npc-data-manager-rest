@@ -5,7 +5,10 @@ import com.rozsa.dao.api.Identifiable;
 import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
 
-public class Item implements Identifiable<ObjectId> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GenericItem implements Identifiable<ObjectId> {
     private String type;
 
     private ObjectId id;
@@ -28,11 +31,57 @@ public class Item implements Identifiable<ObjectId> {
 
     private int price;
 
-    public Item(String type) {
+    // Wearable
+    private List<WearableSlotKind> wearableSlots;
+
+    private WearableStatus status;
+
+    // Usable
+    private List<StatusModifier> statusModifiersData;
+
+    private String soundEfx;
+
+    public GenericItem(String type) {
         this.type = type;
     }
 
-    public Item() {}
+    public GenericItem() {
+        wearableSlots = new ArrayList<>();
+        status = new WearableStatus();
+        statusModifiersData = new ArrayList<>();
+    }
+
+    public List<StatusModifier> getStatusModifiersData() {
+        return statusModifiersData;
+    }
+
+    public void setStatusModifiersData(List<StatusModifier> statusModifiersData) {
+        this.statusModifiersData = statusModifiersData;
+    }
+
+    public String getSoundEfx() {
+        return soundEfx;
+    }
+
+    public void setSoundEfx(String soundEfx) {
+        this.soundEfx = soundEfx;
+    }
+
+    public List<WearableSlotKind> getWearableSlots() {
+        return wearableSlots;
+    }
+
+    public void setWearableSlots(List<WearableSlotKind> wearableSlots) {
+        this.wearableSlots = wearableSlots;
+    }
+
+    public WearableStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(WearableStatus status) {
+        this.status = status;
+    }
 
     @JsonIgnore
     @BsonIgnore
@@ -142,18 +191,5 @@ public class Item implements Identifiable<ObjectId> {
 
     public boolean typeOf(String targetType) {
         return type.equals(targetType);
-    }
-
-    public static void copyFrom(Item item, GenericItem generic) {
-        item.setId(generic.getId());
-        item.setUid(generic.getUid());
-        item.setLevel(generic.getLevel());
-        item.setName(generic.getName());
-        item.setDescription(generic.getDescription());
-        item.setSpriteData(generic.getSpriteData());
-        item.setIconData(generic.getIconData());
-        item.setCount(generic.getCount());
-        item.setMaximumStack(generic.getMaximumStack());
-        item.setPrice(generic.getPrice());
     }
 }

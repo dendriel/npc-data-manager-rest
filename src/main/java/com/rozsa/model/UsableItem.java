@@ -27,4 +27,14 @@ public class UsableItem extends Item {
     public void setSoundEfx(String soundEfx) {
         this.soundEfx = soundEfx;
     }
+
+    public static UsableItem from(GenericItem generic) {
+        UsableItem item = new UsableItem();
+        Item.copyFrom(item, generic);
+
+        item.setStatusModifiersData(generic.getStatusModifiersData());
+        item.setSoundEfx(generic.getSoundEfx());
+
+        return item;
+    }
 }

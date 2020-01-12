@@ -5,6 +5,8 @@ public class StatusModifier {
 
     private int manaModifier;
 
+    public StatusModifier() {}
+
     public int getLifeModifier() {
         return lifeModifier;
     }

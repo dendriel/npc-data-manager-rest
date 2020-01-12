@@ -5,6 +5,7 @@ import com.rozsa.dao.api.DataHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemsHolder implements DataHolder<Item> {
     private List<GoldItem> goldData;
@@ -16,6 +17,32 @@ public class ItemsHolder implements DataHolder<Item> {
     private List<WearableItem> wearableItemsData;
 
     private List<UsableItem> usableItemsData;
+
+    public ItemsHolder() {}
+
+    public ItemsHolder(List<GenericItem> items) {
+        setup(items);
+    }
+
+    private void setup(List<GenericItem> items) {
+        goldData = filter(items, "gold", GoldItem::from);
+        valuableItemsData = filter(items, "valuable", ValuableItem::from);
+        questItemsData = filter(items, "quest", QuestItem::from);
+        wearableItemsData = filter(items, "wearable", WearableItem::from);
+        usableItemsData = filter(items, "usable", UsableItem::from);
+    }
+
+    private <T> List<T> filter(List<GenericItem> items, String type, MapItem<T> map) {
+        return items
+                .stream()
+                .filter(i -> i.typeOf(type))
+                .map(map::execute)
+                .collect(Collectors.toList());
+    }
+
+    private interface MapItem<T> {
+        T execute(GenericItem item);
+    }
 
     public List<GoldItem> getGoldData() {
         return goldData;

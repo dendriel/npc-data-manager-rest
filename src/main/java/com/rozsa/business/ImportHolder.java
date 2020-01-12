@@ -34,9 +34,9 @@ public class ImportHolder<
     }
 
     private THolder loadFromFile() {
-        LoadResource<THolder> loadNpcs = new LoadResource<>(filePath, holderClazz);
+        LoadResource<THolder> load = new LoadResource<>(filePath, holderClazz);
         try {
-            return loadNpcs.execute();
+            return load.execute();
         } catch (Exception e) {
             return null;
         }

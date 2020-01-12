@@ -1,11 +1,11 @@
 package com.rozsa.business;
 
 import com.rozsa.dao.ItemDao;
-import com.rozsa.model.Item;
-import com.rozsa.model.ItemsHolder;
+import com.rozsa.model.GenericItem;
+import com.rozsa.model.GenericItemsHolder;
 
-public class ImportItems extends ImportHolder<Item, ItemDao, ItemsHolder> {
+public class ImportItems extends ImportHolder<GenericItem, ItemDao, GenericItemsHolder> {
     public ImportItems(ItemDao dao, String filePath) {
-        super(dao, ItemsHolder.class, filePath);
+        super(dao, GenericItemsHolder.class, filePath);
     }
 }
