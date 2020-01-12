@@ -5,6 +5,7 @@ public enum WearableSlotKind {
     HEAD,
     TORSO,
     FEET,
+    AMMO,
     BACK,
     LEFT_HAND,
     RIGHT_HAND,
