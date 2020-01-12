@@ -4,7 +4,6 @@ import com.rozsa.business.ExportNpcs;
 import com.rozsa.business.ImportNpcs;
 import com.rozsa.dao.NpcDao;
 import com.rozsa.model.Npc;
-import com.rozsa.model.NpcsHolder;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +12,7 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/npc")
 public class NpcControler {
     private final NpcDao npcDao;
 
@@ -21,35 +21,28 @@ public class NpcControler {
     }
 
     //@CrossOrigin(origins = "http://localhost:9090")
-    @RequestMapping("/npc/getAll")
+    @RequestMapping("/getAll")
     public List<Npc> getAll() {
         return npcDao.findAll();
     }
 
-    @RequestMapping("/npc/get")
+    @RequestMapping("/get")
     public Npc get(@RequestParam(value="id") ObjectId id) {
         return npcDao.findById(id);
     }
 
-    @RequestMapping("/npc/getById")
+    @RequestMapping("/getById")
     public Npc getById(int id) {
         return npcDao.findAll().get(0);
     }
 
-    @RequestMapping("/npc/save")
+    @RequestMapping("/save")
     public Npc save(@RequestBody Npc npc) {
         System.out.println("Save npc " + npc.getName());
         return npcDao.save(npc);
     }
 
-    @RequestMapping("/npc/testsave")
-    public void test() {
-        //System.out.println("Save npc " + npc.getName());
-        npcDao.save(new Npc());
-    }
-
-
-    @RequestMapping("/npc/delete")
+    @RequestMapping("/delete")
     public boolean delete(@RequestParam(value="id") String idAsText) {
         System.out.println("Delete npc " + idAsText);
 
@@ -62,14 +55,14 @@ public class NpcControler {
         return npcDao.deleteById(id);
     }
 
-    @RequestMapping("/npc/import")
+    @RequestMapping("/import")
     public int importFromFile(@RequestBody String filePath) {
         System.out.println("Import data into database from " + filePath);
         ImportNpcs importNpcs = new ImportNpcs(npcDao, filePath);
         return importNpcs.execute();
     }
 
-    @RequestMapping("/npc/export")
+    @RequestMapping("/export")
     public int exportToFile(@RequestBody String filePath) throws IOException {
         System.out.println("Export data into database from " + filePath);
         List<Npc> npcs = npcDao.findAll();
