@@ -6,7 +6,7 @@ import org.bson.codecs.pojo.annotations.BsonIgnore;
 import org.bson.types.ObjectId;
 
 public class Item implements Identifiable<ObjectId> {
-    private final String type;
+    private String type;
 
     private ObjectId id;
 
@@ -31,6 +31,8 @@ public class Item implements Identifiable<ObjectId> {
     public Item(String type) {
         this.type = type;
     }
+
+    public Item() {}
 
     @JsonIgnore
     @BsonIgnore

@@ -19,6 +19,14 @@ public abstract class AbstractDao<TType extends Identifiable> {
         this.collectionName = collectionName;
     }
 
+    public TType create(TType obj) {
+        return db.create(obj, objKind, collectionName);
+    }
+
+    public void create(List<TType> obj) {
+        obj.forEach(this::create);
+    }
+
     public TType save(TType obj) {
         if (obj.getObjectId() == null) {
             return db.create(obj, objKind, collectionName);

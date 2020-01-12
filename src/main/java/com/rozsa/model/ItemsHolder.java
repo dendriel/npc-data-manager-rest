@@ -1,8 +1,12 @@
 package com.rozsa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rozsa.dao.api.DataHolder;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class ItemsHolder {
+public class ItemsHolder implements DataHolder<Item> {
     private List<GoldItem> goldData;
 
     private List<ValuableItem> valuableItemsData;
@@ -51,5 +55,17 @@ public class ItemsHolder {
 
     public void setUsableItemsData(List<UsableItem> usableItemsData) {
         this.usableItemsData = usableItemsData;
+    }
+
+    @JsonIgnore
+    public List<Item> getData() {
+        List<Item> allItems = new ArrayList<>();
+        allItems.addAll(goldData);
+        allItems.addAll(valuableItemsData);
+        allItems.addAll(questItemsData);
+        allItems.addAll(wearableItemsData);
+        allItems.addAll(usableItemsData);
+
+        return allItems;
     }
 }

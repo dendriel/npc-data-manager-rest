@@ -1,8 +1,10 @@
 package com.rozsa.model;
 
+import com.rozsa.dao.api.DataHolder;
+
 import java.util.List;
 
-public class NpcsHolder {
+public class NpcsHolder implements DataHolder<Npc> {
     private List<Npc> data;
 
     public NpcsHolder() {}
