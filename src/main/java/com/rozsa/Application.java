@@ -18,8 +18,11 @@ public class Application {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry
-                        .addMapping("/npc/*")
-                        .allowedOrigins("http://localhost:9090");
+                        .addMapping("/**")
+                        .allowedMethods("GET", "POST")
+                        .allowedOrigins("*");
+                //.allowedMethods("GET", "POST", "OPTIONS", "PUT", "DELETE")
+                //.allowedOrigins("http://localhost:9090");
             }
         };
     }

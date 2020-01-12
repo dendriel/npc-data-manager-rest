@@ -1,9 +1,16 @@
 package com.rozsa.model;
 
-public class Item {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.rozsa.dao.api.Identifiable;
+import org.bson.codecs.pojo.annotations.BsonIgnore;
+import org.bson.types.ObjectId;
+
+public class Item implements Identifiable<ObjectId> {
     private final String type;
 
-    private int id;
+    private ObjectId id;
+
+    private long uid;
 
     private int level;
 
@@ -25,12 +32,38 @@ public class Item {
         this.type = type;
     }
 
-    public int getId() {
+    @JsonIgnore
+    @BsonIgnore
+    public ObjectId getObjectId() {
         return id;
     }
 
-    public void setId(int id) {
+    @JsonIgnore
+    public ObjectId getId() {
+        return id;
+    }
+
+    @JsonIgnore
+    public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public String getIdAsText() {
+        return id.toString();
+    }
+
+    public void setIdAsText(String idAsText) {
+        if (idAsText != null && !idAsText.isEmpty()) {
+            id = new ObjectId(idAsText);
+        }
+    }
+
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
     }
 
     public String getType() {
