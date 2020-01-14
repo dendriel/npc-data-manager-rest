@@ -7,6 +7,10 @@ public class WearableStatus {
 
     private int defense;
 
+    private int minRange;
+
+    private int maxRange;
+
     public int getDefense() {
         return defense;
     }
@@ -29,5 +33,21 @@ public class WearableStatus {
 
     public void setMaxAttack(int maxAttack) {
         this.maxAttack = maxAttack;
+    }
+
+    public int getMinRange() {
+        return minRange;
+    }
+
+    public void setMinRange(int minRange) {
+        this.minRange = minRange;
+    }
+
+    public int getMaxRange() {
+        return maxRange;
+    }
+
+    public void setMaxRange(int maxRange) {
+        this.maxRange = maxRange;
     }
 }

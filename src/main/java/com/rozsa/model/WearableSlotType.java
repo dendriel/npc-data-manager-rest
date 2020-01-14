@@ -1,6 +1,6 @@
 package com.rozsa.model;
 
-public enum WearableSlotKind {
+public enum WearableSlotType {
     NECK,
     HEAD,
     TORSO,

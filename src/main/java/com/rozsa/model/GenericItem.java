@@ -32,9 +32,11 @@ public class GenericItem implements Identifiable<ObjectId> {
     private int price;
 
     // Wearable
-    private List<WearableSlotKind> wearableSlots;
+    private List<WearableSlotType> wearableSlots;
 
     private WearableStatus status;
+
+    private WearableAmmoType ammoType;
 
     // Usable
     private List<StatusModifier> statusModifiersData;
@@ -49,6 +51,14 @@ public class GenericItem implements Identifiable<ObjectId> {
         wearableSlots = new ArrayList<>();
         status = new WearableStatus();
         statusModifiersData = new ArrayList<>();
+    }
+
+    public WearableAmmoType getAmmoType() {
+        return ammoType;
+    }
+
+    public void setAmmoType(WearableAmmoType ammoType) {
+        this.ammoType = ammoType;
     }
 
     public List<StatusModifier> getStatusModifiersData() {
@@ -67,11 +77,11 @@ public class GenericItem implements Identifiable<ObjectId> {
         this.soundEfx = soundEfx;
     }
 
-    public List<WearableSlotKind> getWearableSlots() {
+    public List<WearableSlotType> getWearableSlots() {
         return wearableSlots;
     }
 
-    public void setWearableSlots(List<WearableSlotKind> wearableSlots) {
+    public void setWearableSlots(List<WearableSlotType> wearableSlots) {
         this.wearableSlots = wearableSlots;
     }
 
