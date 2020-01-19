@@ -44,6 +44,7 @@ public class ImportHolder<
 
     private int saveToDatabase(THolder itemsHolder) {
         List<TObj> data = itemsHolder.getData();
+
         dao.create(data);
         return data.size();
     }

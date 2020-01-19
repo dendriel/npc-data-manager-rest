@@ -38,6 +38,8 @@ public class GenericItem implements Identifiable<ObjectId> {
 
     private WearableAmmoType ammoType;
 
+    private Aim aim;
+
     // Usable
     private List<StatusModifier> statusModifiersData;
 
@@ -51,6 +53,14 @@ public class GenericItem implements Identifiable<ObjectId> {
         wearableSlots = new ArrayList<>();
         status = new WearableStatus();
         statusModifiersData = new ArrayList<>();
+    }
+
+    public Aim getAim() {
+        return aim;
+    }
+
+    public void setAim(Aim aim) {
+        this.aim = aim;
     }
 
     public WearableAmmoType getAmmoType() {
