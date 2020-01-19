@@ -11,6 +11,8 @@ public class WearableItem extends Item {
 
     private Aim aim;
 
+    private Hit hit;
+
     public WearableItem() {
         super("wearable");
     }
@@ -47,6 +49,14 @@ public class WearableItem extends Item {
         this.aim = aim;
     }
 
+    public Hit getHit() {
+        return hit;
+    }
+
+    public void setHit(Hit hit) {
+        this.hit = hit;
+    }
+
     public static WearableItem from(GenericItem generic) {
         WearableItem item = new WearableItem();
         Item.copyFrom(item, generic);
@@ -55,6 +65,7 @@ public class WearableItem extends Item {
         item.setStatus(generic.getStatus());
         item.setAmmoType(generic.getAmmoType());
         item.setAim(generic.getAim());
+        item.setHit(generic.getHit());
 
         return item;
     }
