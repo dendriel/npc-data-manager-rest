@@ -13,6 +13,10 @@ public class Sprite {
 
     private boolean enabled;
 
+    private boolean isFlipX;
+
+    private boolean isFlipY;
+
     public Sprite() {
         offset = new Offset(0, 0);
         scale = new Scale(1, 1);
@@ -63,5 +67,21 @@ public class Sprite {
     @JsonIgnore
     public String getEnabledAsText() {
         return enabled ? "checked" : "";
+    }
+
+    public boolean isFlipX() {
+        return isFlipX;
+    }
+
+    public void setFlipX(boolean flipX) {
+        isFlipX = flipX;
+    }
+
+    public boolean isFlipY() {
+        return isFlipY;
+    }
+
+    public void setFlipY(boolean flipY) {
+        isFlipY = flipY;
     }
 }

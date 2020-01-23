@@ -13,6 +13,10 @@ public class Status {
 
     private int mana;
 
+    private int exp;
+
+    private int level;
+
     public int getStrength() {
         return strength;
     }
@@ -59,5 +63,21 @@ public class Status {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getExp() {
+        return exp;
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

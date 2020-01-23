@@ -25,6 +25,10 @@ public class Npc implements Identifiable<ObjectId> {
 
     private Sprite spriteData;
 
+    private LootHolder lootHolder;
+
+    private NpcWearableHolder wearableHolder;
+
     private List<Integer> interactionOrder;
 
     private List<Interaction> interactionData;
@@ -34,6 +38,7 @@ public class Npc implements Identifiable<ObjectId> {
         interactionData = new ArrayList<>();
         status = new Status();
         spriteData = new Sprite();
+        lootHolder = new LootHolder();
     }
 
     public List<Interaction> getInteractionData() {
@@ -137,5 +142,21 @@ public class Npc implements Identifiable<ObjectId> {
 
     public void setFacingRight(boolean facingRight) {
         isFacingRight = facingRight;
+    }
+
+    public LootHolder getLootHolder() {
+        return lootHolder;
+    }
+
+    public void setLootHolder(LootHolder lootHolder) {
+        this.lootHolder = lootHolder;
+    }
+
+    public NpcWearableHolder getWearableHolder() {
+        return wearableHolder;
+    }
+
+    public void setWearableHolder(NpcWearableHolder wearableHolder) {
+        this.wearableHolder = wearableHolder;
     }
 }
