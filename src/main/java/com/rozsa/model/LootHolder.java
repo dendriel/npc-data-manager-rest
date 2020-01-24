@@ -35,10 +35,6 @@ public class LootHolder {
         this.chance = chance;
     }
 
-    public int getId() {
-        return 0;
-    }
-
     public String getName() {
         return name;
     }

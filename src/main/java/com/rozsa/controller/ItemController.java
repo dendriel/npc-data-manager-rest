@@ -1,12 +1,9 @@
 package com.rozsa.controller;
 
 import com.rozsa.business.ExportItems;
-import com.rozsa.business.ExportNpcs;
 import com.rozsa.business.ImportItems;
 import com.rozsa.dao.ItemDao;
 import com.rozsa.model.GenericItem;
-import com.rozsa.model.Item;
-import com.rozsa.model.Npc;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

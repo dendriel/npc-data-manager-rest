@@ -29,32 +29,10 @@ public class Npc implements Identifiable<ObjectId> {
 
     private NpcWearableHolder wearableHolder;
 
-    private List<Integer> interactionOrder;
-
-    private List<Interaction> interactionData;
-
     public Npc() {
-        interactionOrder = new ArrayList<>();
-        interactionData = new ArrayList<>();
         status = new Status();
         spriteData = new Sprite();
         lootHolder = new LootHolder();
-    }
-
-    public List<Interaction> getInteractionData() {
-        return interactionData;
-    }
-
-    public void setInteractionData(List<Interaction> Interaction) {
-        this.interactionData = Interaction;
-    }
-
-    public List<Integer> getInteractionOrder() {
-        return interactionOrder;
-    }
-
-    public void setInteractionOrder(List<Integer> interactionOrder) {
-        this.interactionOrder = interactionOrder;
     }
 
     public String getName() {
