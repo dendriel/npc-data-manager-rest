@@ -1,18 +1,18 @@
 package com.rozsa.model;
 
 public class LootData {
-    private String item;
+    private int uid;
 
     private int count;
 
     private double chance;
 
-    public String getItem() {
-        return item;
+    public int getUid() {
+        return uid;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public int getCount() {

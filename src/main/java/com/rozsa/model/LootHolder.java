@@ -5,7 +5,7 @@ import java.util.List;
 public class LootHolder {
     private String name;
 
-    private String lootItemHolder;
+    private int uid;
 
     private int chance;
 
@@ -15,12 +15,12 @@ public class LootHolder {
         return loot;
     }
 
-    public String getLootItemHolder() {
-        return lootItemHolder;
+    public int getUid() {
+        return uid;
     }
 
-    public void setLootItemHolder(String lootItemHolder) {
-        this.lootItemHolder = lootItemHolder;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public void setLoot(List<LootData> loot) {
