@@ -11,6 +11,16 @@ public class NpcWearableHolder {
 
     private int maxRange;
 
+    private Hit hit;
+
+    public Hit getHit() {
+        return hit;
+    }
+
+    public void setHit(Hit hit) {
+        this.hit = hit;
+    }
+
     public int getMinRange() {
         return minRange;
     }
