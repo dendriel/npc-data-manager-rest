@@ -5,6 +5,8 @@ public class StatusModifier {
 
     private int manaModifier;
 
+    private int skillModifier;
+
     public StatusModifier() {}
 
     public int getLifeModifier() {
@@ -21,5 +23,13 @@ public class StatusModifier {
 
     public void setManaModifier(int manaModifier) {
         this.manaModifier = manaModifier;
+    }
+
+    public int getSkillModifier() {
+        return skillModifier;
+    }
+
+    public void setSkillModifier(int skillModifier) {
+        this.skillModifier = skillModifier;
     }
 }
