@@ -14,6 +14,8 @@ public class Interaction {
 
     private List<DialogFeedback> messages;
 
+    private DecisionFeedback decision;
+
     private float priceMultiplier;
 
     private List<String> items;
@@ -189,5 +191,13 @@ public class Interaction {
 
     public void setTargetData(String targetData) {
         this.targetData = targetData;
+    }
+
+    public DecisionFeedback getDecision() {
+        return decision;
+    }
+
+    public void setDecision(DecisionFeedback decision) {
+        this.decision = decision;
     }
 }

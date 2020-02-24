@@ -22,6 +22,7 @@ public class Label {
     private int horizontalAlignment;
 
     public Label() {
+        color = new Color(255, 255, 255);
     }
 
     public Label(int size, Rect rect, int verAlign, int horAlign, String text) {
