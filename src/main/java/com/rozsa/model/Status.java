@@ -2,19 +2,12 @@ package com.rozsa.model;
 
 public class Status {
     private int strength;
-
     private int intelligence;
-
     private int dexterity;
-
     private int accuracy;
-
     private int life;
-
     private int mana;
-
     private int exp;
-
     private int level;
 
     public int getStrength() {
