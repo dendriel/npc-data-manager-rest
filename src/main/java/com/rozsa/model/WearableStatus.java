@@ -6,6 +6,8 @@ public class WearableStatus {
     private int defense;
     private int minRange;
     private int maxRange;
+    private int minArea;
+    private int maxArea;
     private int strength;
     private int intelligence;
     private int dexterity;
@@ -99,5 +101,21 @@ public class WearableStatus {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public int getMinArea() {
+        return minArea;
+    }
+
+    public void setMinArea(int minArea) {
+        this.minArea = minArea;
+    }
+
+    public int getMaxArea() {
+        return maxArea;
+    }
+
+    public void setMaxArea(int maxArea) {
+        this.maxArea = maxArea;
     }
 }
