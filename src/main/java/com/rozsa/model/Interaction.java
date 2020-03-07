@@ -18,7 +18,7 @@ public class Interaction {
 
     private float priceMultiplier;
 
-    private List<String> items;
+    private List<StoreItem> storeItems;
 
     private List<Event> requireEventsState;
 
@@ -37,7 +37,7 @@ public class Interaction {
         this.id = id;
         type = InteractionType.NONE;
         messages = new ArrayList<>();
-        items = new ArrayList<>();
+        storeItems = new ArrayList<>();
         requireEventsState = new ArrayList<>();
         updateEventsState = new ArrayList<>();
         targetId = 0;
@@ -102,12 +102,12 @@ public class Interaction {
         this.priceMultiplier = priceMultiplier;
     }
 
-    public List<String> getItems() {
-        return items;
+    public List<StoreItem> getStoreItems() {
+        return storeItems;
     }
 
-    public void setItems(List<String> items) {
-        this.items = items;
+    public void setStoreItems(List<StoreItem> storeItems) {
+        this.storeItems = storeItems;
     }
 
     public List<Event> getRequireEventsState() {
@@ -144,11 +144,11 @@ public class Interaction {
 
     @JsonIgnore
     public String getItemsAsText() {
-        if (items == null) {
+        if (storeItems == null) {
             return "";
         }
 
-        return items
+        return storeItems
                 .toString()
                 .replace("[", "")
                 .replace("]", "");

@@ -10,26 +10,16 @@ import java.util.List;
 
 public class GenericItem implements Identifiable<ObjectId> {
     private String type;
-
     private ObjectId id;
-
     private long uid;
-
     private int level;
-
     private String name;
-
     private String description;
-
     private Sprite spriteData;
-
     private Icon iconData;
-
     private int count;
-
     private int maximumStack;
-
-    private int price;
+    private float price;
 
     // Wearable
     private List<WearableSlotType> wearableSlots;
@@ -187,11 +177,11 @@ public class GenericItem implements Identifiable<ObjectId> {
         this.maximumStack = maximumStack;
     }
 
-    public int getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
