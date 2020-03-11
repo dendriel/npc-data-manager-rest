@@ -14,6 +14,7 @@ public class WearableStatus {
     private int accuracy;
     private int life;
     private int mana;
+    private int inventorySlots;
 
     public int getDefense() {
         return defense;
@@ -117,5 +118,13 @@ public class WearableStatus {
 
     public void setMaxArea(int maxArea) {
         this.maxArea = maxArea;
+    }
+
+    public int getInventorySlots() {
+        return inventorySlots;
+    }
+
+    public void setInventorySlots(int inventorySlots) {
+        this.inventorySlots = inventorySlots;
     }
 }
