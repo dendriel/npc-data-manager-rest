@@ -17,6 +17,7 @@ public class Item implements Identifiable<ObjectId> {
     private int count;
     private int maximumStack;
     private float price;
+    private boolean sellAsStack;
 
     public Item(String type) {
         this.type = type;
@@ -134,6 +135,14 @@ public class Item implements Identifiable<ObjectId> {
         return type.equals(targetType);
     }
 
+    public boolean getSellAsStack() {
+        return sellAsStack;
+    }
+
+    public void setSellAsStack(boolean sellAsStack) {
+        this.sellAsStack = sellAsStack;
+    }
+
     public static void copyFrom(Item item, GenericItem generic) {
         item.setId(generic.getId());
         item.setUid(generic.getUid());
@@ -145,5 +154,6 @@ public class Item implements Identifiable<ObjectId> {
         item.setCount(generic.getCount());
         item.setMaximumStack(generic.getMaximumStack());
         item.setPrice(generic.getPrice());
+        item.setSellAsStack(generic.getSellAsStack());
     }
 }

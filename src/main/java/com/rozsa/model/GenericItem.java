@@ -20,6 +20,7 @@ public class GenericItem implements Identifiable<ObjectId> {
     private int count;
     private int maximumStack;
     private float price;
+    private boolean sellAsStack;
 
     // Wearable
     private List<WearableSlotType> wearableSlots;
@@ -207,6 +208,14 @@ public class GenericItem implements Identifiable<ObjectId> {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public boolean getSellAsStack() {
+        return sellAsStack;
+    }
+
+    public void setSellAsStack(boolean sellAsStack) {
+        this.sellAsStack = sellAsStack;
     }
 
     public boolean typeOf(String targetType) {
