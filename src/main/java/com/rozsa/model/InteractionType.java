@@ -9,4 +9,5 @@ public enum InteractionType {
     PLAY_SOUND,
     TELEPORT,
     REMOVE_QUEST_ITEM,
+    CONTAINER
 }
