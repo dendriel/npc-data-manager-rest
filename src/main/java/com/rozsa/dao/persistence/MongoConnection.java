@@ -7,6 +7,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.rozsa.dao.api.DatabaseConnection;
 import com.rozsa.dao.api.Identifiable;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -28,7 +29,8 @@ public class MongoConnection implements DatabaseConnection {
         // TODO: inject connection parameters.
         String ip = "localhost";
         int port = 27017;
-        String dbName = "the-quest";
+        String dbName = System.getProperty("schema");
+        assert dbName != null;
 
         client = new MongoClient(ip, port);
         db = connect(dbName);

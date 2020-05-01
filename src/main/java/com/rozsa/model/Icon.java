@@ -3,22 +3,12 @@ package com.rozsa.model;
 public class Icon {
     private String imageFile;
 
-    private Rect rect;
-
     public String getImageFile() {
         return imageFile;
     }
 
     public void setImageFile(String imageFile) {
         this.imageFile = imageFile;
-    }
-
-    public Rect getRect() {
-        return rect;
-    }
-
-    public void setRect(Rect rect) {
-        this.rect = rect;
     }
 
     @Override
@@ -33,8 +23,6 @@ public class Icon {
         }
 
         boolean isEqual = imageFile.equals(other.getImageFile());
-        isEqual &= rect.equals(other.getRect());
-
         return isEqual;
     }
 }
