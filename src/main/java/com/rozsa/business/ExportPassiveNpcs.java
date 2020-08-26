@@ -1,6 +1,5 @@
 package com.rozsa.business;
 
-import com.rozsa.model.Npc;
 import com.rozsa.model.PassiveNpc;
 import com.rozsa.model.PassiveNpcsHolder;
 import com.rozsa.parser.JsonWriter;

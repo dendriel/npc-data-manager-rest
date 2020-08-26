@@ -12,6 +12,7 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,15 +26,15 @@ public class MongoConnection implements DatabaseConnection {
 
     private final MongoDatabase db;
 
-    public MongoConnection() {
-        // TODO: inject connection parameters.
-        String ip = "localhost";
-        int port = 27017;
-        String dbName = System.getProperty("schema");
-        assert dbName != null;
+    public MongoConnection(
+            @Value("${DB_HOST:}") String host,
+            @Value("${DB_SCHEMA:}") String schema
+    ) {
+        assert host != null : "DB_HOST option must be non-empty (ex.: -DDB_HOST=localhost:27017)";
+        assert schema != null : "DB_SCHEMA option must be non-empty (ex.: -DDB_SCHEMA=schema-name)";
 
-        client = new MongoClient(ip, port);
-        db = connect(dbName);
+        client = new MongoClient(host);
+        db = connect(schema);
     }
 
     // http://mongodb.github.io/mongo-java-driver/3.6/bson/codecs/
