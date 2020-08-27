@@ -7,12 +7,14 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 import com.rozsa.dao.api.DatabaseConnection;
 import com.rozsa.dao.api.Identifiable;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,21 +22,36 @@ import java.util.List;
 
 import static org.bson.codecs.configuration.CodecRegistries.*;
 
+@SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @Service
 public class MongoConnection implements DatabaseConnection {
-    private final MongoClient client;
+    private static final String LOCALHOST_IP = "localhost";
 
+    private final MongoClient client;
     private final MongoDatabase db;
 
     public MongoConnection(
             @Value("${DB_HOST:}") String host,
+            @Value("${DB_PORT:}") Integer port,
             @Value("${DB_SCHEMA:}") String schema
     ) {
-        assert host != null : "DB_HOST option must be non-empty (ex.: -DDB_HOST=localhost:27017)";
         assert schema != null : "DB_SCHEMA option must be non-empty (ex.: -DDB_SCHEMA=schema-name)";
 
-        client = new MongoClient(host);
+        client = createClient(host, port);
         db = connect(schema);
+    }
+
+    private MongoClient createClient(String host, Integer port) {
+        if (host.isEmpty()) {
+            host = LOCALHOST_IP;
+        }
+
+        if (port != null) {
+            return new MongoClient(host, port);
+        }
+        else {
+            return new MongoClient(host);
+        }
     }
 
     // http://mongodb.github.io/mongo-java-driver/3.6/bson/codecs/

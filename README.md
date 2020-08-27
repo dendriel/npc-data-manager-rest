@@ -12,12 +12,14 @@ there is any available external data source.
 
 # VM Options
 
-- DB_HOST = mongo address "ip:port";
+- DB_HOST = mongo ip (optional - default is localhost);
+- DB_PORT - mongo port (optional);
 - DB_SCHEMA = target mongo schema.
 
 Ex.:
 ```
--DDB_HOST=localhost:27017
+-DDB_HOST=localhost
+-DDB_PORT=27017
 -DDB_SCHEMA=the-quest
 ```
 
@@ -27,3 +29,20 @@ Ex.:
 $ mvn clean package
 $ java -jar target/npc-data-manager-rest-1.0-SNAPSHOT.jar
 ```
+
+# Docker image building
+
+Build:
+```
+$ docker build -t npc-data-manager .
+```
+
+Run:
+
+```
+$ docker run -p 8080:8080 npc-datamanager
+```
+
+Access at: ``localhost:8080/model/action``
+
+Example: ``http://localhost:8080/item/getAll``
