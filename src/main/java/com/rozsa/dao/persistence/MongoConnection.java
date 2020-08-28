@@ -33,12 +33,12 @@ public class MongoConnection implements DatabaseConnection {
     public MongoConnection(
             @Value("${DB_HOST:}") String host,
             @Value("${DB_PORT:}") Integer port,
-            @Value("${DB_SCHEMA:}") String schema
+            @Value("${DB_NAME:}") String dbName
     ) {
-        assert schema != null : "DB_SCHEMA option must be non-empty (ex.: -DDB_SCHEMA=schema-name)";
+        assert dbName != null : "DB_NAME option must be non-empty (ex.: -DDB_NAME=database-name)";
 
         client = createClient(host, port);
-        db = connect(schema);
+        db = connect(dbName);
     }
 
     private MongoClient createClient(String host, Integer port) {

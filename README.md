@@ -14,13 +14,13 @@ there is any available external data source.
 
 - DB_HOST = mongo ip (optional - default is localhost);
 - DB_PORT - mongo port (optional);
-- DB_SCHEMA = target mongo schema.
+- DB_NAME = target mongo schema.
 
 Ex.:
 ```
 -DDB_HOST=localhost
 -DDB_PORT=27017
--DDB_SCHEMA=the-quest
+-DDB_NAME=the-quest
 ```
 
 # Standalone executable JAR building:

@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+    rest-app:
+        image: dendriel/npc-data-manager-rest
+        command: "java -jar /npc-data-manager-rest.jar"
+        ports:
+            - 8080:8080
+        working_dir: /app
+        environment:
+            DB_NAME: npc-data
+            DB_HOST: "mongodb"
+            DB_PORT: 27017
+    front-app:
+        image: dendriel/npc-data-manager-front
+        command: "node server.js"
+        ports:
+            - 9090:9090
+        working_dir: /app
+    mongodb:
+        image: mongo
+        environment:
+            - MONGO_INITDB_DATABASE:npc-data
+            - MONGO_INITDB_ROOT_USERNAME:root
+            - MONGO_INITDB_ROOT_PASSWORD:pass
+        volumes:
+            - mongodb_data:/data/db
+        ports:
+            - 27017:27017
+
+volumes:
+    mongodb_data:
+
+

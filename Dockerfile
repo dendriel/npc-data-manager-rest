@@ -9,7 +9,7 @@ FROM openjdk:8-jre-alpine3.9
 
 COPY --from=MAVEN_BUILD /target/npc-data-manager-rest-1.0-SNAPSHOT.jar /npc-data-manager-rest.jar
 
-ENV DB_SCHEMA=the-quest \
+ENV DB_NAME=the-quest \
     DB_HOST="10.10.10.6" \
     DB_PORT=27017
 
