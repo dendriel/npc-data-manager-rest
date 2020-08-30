@@ -1,0 +1,2 @@
+# initmongo/setup.sh (unused right now)
+mongo admin -u $MONGO_INITDB_ROOT_USERNAME -p $MONGO_INITDB_ROOT_PASSWORD --eval "db.getSiblingDB('npc_data').createUser({user: 'root', pwd: 'pass', roles: [{role: 'dbAdmin', db: 'npc_data'}]});"

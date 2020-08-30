@@ -1,6 +1,6 @@
 package com.rozsa.dao.persistence;
 
-import com.mongodb.MongoClient;
+import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -26,6 +26,7 @@ import static org.bson.codecs.configuration.CodecRegistries.*;
 @Service
 public class MongoConnection implements DatabaseConnection {
     private static final String LOCALHOST_IP = "localhost";
+    private static final Integer DEFAULT_MONGO_PORT = 27017;
 
     private final MongoClient client;
     private final MongoDatabase db;
@@ -33,25 +34,37 @@ public class MongoConnection implements DatabaseConnection {
     public MongoConnection(
             @Value("${DB_HOST:}") String host,
             @Value("${DB_PORT:}") Integer port,
-            @Value("${DB_NAME:}") String dbName
+            @Value("${DB_NAME:}") String dbName,
+            @Value("${DB_USER:}") String user,
+            @Value("${DB_PASS:}") String pass
     ) {
         assert dbName != null : "DB_NAME option must be non-empty (ex.: -DDB_NAME=database-name)";
 
-        client = createClient(host, port);
+        client = createClient(host, port, user, pass, dbName);
         db = connect(dbName);
     }
 
-    private MongoClient createClient(String host, Integer port) {
+    private MongoClient createClient(String host, Integer port, String user, String pass, String dbName) {
         if (host.isEmpty()) {
             host = LOCALHOST_IP;
         }
 
-        if (port != null) {
-            return new MongoClient(host, port);
+        if (port == null) {
+            port = DEFAULT_MONGO_PORT;
         }
-        else {
-            return new MongoClient(host);
-        }
+
+        MongoCredential mongoCredential = MongoCredential.createCredential(user, dbName, pass.toCharArray());
+        MongoClientOptions options = MongoClientOptions.builder()
+                .writeConcern(WriteConcern.JOURNALED) // Write operations wait for the server to group commit to the journal file on disk.
+                .build();
+
+        ServerAddress serverAddress = new ServerAddress(host, port);
+        return new MongoClient(serverAddress, mongoCredential, options);
+
+        // Connect by using a URI.
+//        return new MongoClient(
+//                new MongoClientURI( "mongodb://root:pass@localhost:27017/?authSource=npc_data" )
+//        );
     }
 
     // http://mongodb.github.io/mongo-java-driver/3.6/bson/codecs/

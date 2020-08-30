@@ -12,15 +12,19 @@ there is any available external data source.
 
 # VM Options
 
-- DB_HOST = mongo ip (optional - default is localhost);
-- DB_PORT - mongo port (optional);
-- DB_NAME = target mongo schema.
+- DB_HOST - mongo ip (optional - default is localhost);
+- DB_PORT - mongo port (optional - default is 27017);
+- DB_NAME - target mongo schema;
+- DDB_USER - username for authentication;
+- DDB_PASS - password for authentication.
 
 Ex.:
 ```
 -DDB_HOST=localhost
 -DDB_PORT=27017
 -DDB_NAME=the-quest
+-DDB_USER=root
+-DDB_PASS=pass
 ```
 
 # Standalone executable JAR building:
@@ -46,3 +50,21 @@ $ docker run -p 8080:8080 npc-datamanager
 Access at: ``localhost:8080/model/action``
 
 Example: ``http://localhost:8080/item/getAll``
+
+# Booting up the whole solution (front + back + database)
+
+Use docker-compose to boot-up everything:
+
+```
+$ docker-compose up
+```
+
+To clear up everything (including the volume used by the database):
+
+```
+$ docker-compose stop; docker-compose rm ; docker volume rm npc-data-manager-rest_mongodb_data
+```
+
+*Obs.: the compose solutions uses already built images from dockerhub. If we update the npc-data-manager-rest
+code, we have to commit/push the changes so a new image can be built from it. (or update the compose to build
+the backend image from the project instead of downloading it).

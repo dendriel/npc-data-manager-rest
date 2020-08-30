@@ -11,6 +11,8 @@ COPY --from=MAVEN_BUILD /target/npc-data-manager-rest-1.0-SNAPSHOT.jar /npc-data
 
 ENV DB_NAME=the-quest \
     DB_HOST="10.10.10.6" \
-    DB_PORT=27017
+    DB_PORT=27017 \
+    DB_USER="root" \
+    DB_PASS="pass"
 
 CMD ["java", "-jar", "/npc-data-manager-rest.jar"]
