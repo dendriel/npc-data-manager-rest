@@ -15,8 +15,8 @@ there is any available external data source.
 - DB_HOST - mongo ip (optional - default is localhost);
 - DB_PORT - mongo port (optional - default is 27017);
 - DB_NAME - target mongo schema;
-- DDB_USER - username for authentication;
-- DDB_PASS - password for authentication.
+- DB_USER - username for authentication;
+- DB_PASS - password for authentication.
 
 Ex.:
 ```
@@ -57,6 +57,11 @@ Use docker-compose to boot-up everything:
 
 ```
 $ docker-compose up
+```
+
+Use the following to make sure all images are updated:
+```
+$ docker-compose pull
 ```
 
 To clear up everything (including the volume used by the database):
