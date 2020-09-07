@@ -7,7 +7,8 @@ or reading from mongo. MongoConnection class abstracts this parsing and is gener
 - Easy to write controllers with default actions - extend BaseController<T> to provide get, 
 getAll, getById, save and delete;
 - Import and export infra (ImportHolder, JsonReader and JsonWriter) so we can boot the dataset if
-there is any available external data source.
+there is any available external data source;
+- JWT authentication (user: foo; pass: foo).
 
 
 # VM Options
@@ -73,3 +74,8 @@ $ docker-compose stop; docker-compose rm ; docker volume rm npc-data-manager-res
 *Obs.: the compose solutions uses already built images from dockerhub. If we update the npc-data-manager-rest
 code, we have to commit/push the changes so a new image can be built from it. (or update the compose to build
 the backend image from the project instead of downloading it).
+
+# TODO
+
+- Load user details from database;
+- Encrypt password.
