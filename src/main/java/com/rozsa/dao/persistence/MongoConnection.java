@@ -53,13 +53,19 @@ public class MongoConnection implements DatabaseConnection {
             port = DEFAULT_MONGO_PORT;
         }
 
-        MongoCredential mongoCredential = MongoCredential.createCredential(user, dbName, pass.toCharArray());
         MongoClientOptions options = MongoClientOptions.builder()
                 .writeConcern(WriteConcern.JOURNALED) // Write operations wait for the server to group commit to the journal file on disk.
                 .build();
 
         ServerAddress serverAddress = new ServerAddress(host, port);
-        return new MongoClient(serverAddress, mongoCredential, options);
+
+        if (user.isEmpty() && pass.isEmpty()) {
+            return new MongoClient(serverAddress, options);
+        }
+        else {
+            MongoCredential mongoCredential = MongoCredential.createCredential(user, dbName, pass.toCharArray());
+            return new MongoClient(serverAddress, mongoCredential, options);
+        }
 
         // Connect by using a URI.
 //        return new MongoClient(
