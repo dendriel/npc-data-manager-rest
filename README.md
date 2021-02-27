@@ -74,8 +74,3 @@ $ docker-compose stop; docker-compose rm ; docker volume rm npc-data-manager-res
 *Obs.: the compose solutions uses already built images from dockerhub. If we update the npc-data-manager-rest
 code, we have to commit/push the changes so a new image can be built from it. (or update the compose to build
 the backend image from the project instead of downloading it).
-
-# TODO
-
-- Load user details from database;
-- Encrypt password.
