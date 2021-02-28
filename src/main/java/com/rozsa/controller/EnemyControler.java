@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/enemy")
+@RequestMapping("/rest/enemy")
 public class EnemyControler extends BaseController<Enemy> {
     private final EnemyDao enemyDao;
 

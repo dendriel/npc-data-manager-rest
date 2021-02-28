@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item")
+@RequestMapping("/rest/item")
 public class ItemController extends BaseController<GenericItem> {
     private final ItemDao itemDao;
 

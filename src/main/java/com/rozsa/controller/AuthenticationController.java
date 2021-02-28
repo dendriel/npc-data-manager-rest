@@ -28,7 +28,7 @@ public class AuthenticationController {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @RequestMapping(value = "/rest/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest request) throws Exception {
         // TODO: this is business/login logic and should not be in this layer.
         try {
