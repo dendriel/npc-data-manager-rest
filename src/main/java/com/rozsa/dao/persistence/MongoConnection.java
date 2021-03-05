@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import static org.bson.codecs.configuration.CodecRegistries.*;
 
+@PropertySource("classpath:mongo.properties")
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class})
 @Service
 public class MongoConnection implements DatabaseConnection {
@@ -32,11 +34,11 @@ public class MongoConnection implements DatabaseConnection {
     private final MongoDatabase db;
 
     public MongoConnection(
-            @Value("${DB_HOST:}") String host,
-            @Value("${DB_PORT:}") Integer port,
-            @Value("${DB_NAME:}") String dbName,
-            @Value("${DB_USER:}") String user,
-            @Value("${DB_PASS:}") String pass
+            @Value("${mongo.db.host}") String host,
+            @Value("${mongo.db.port}") Integer port,
+            @Value("${mongo.db.dbname}") String dbName,
+            @Value("${mongo.db.user}") String user,
+            @Value("${mongo.db.pass}") String pass
     ) {
         assert dbName != null : "DB_NAME option must be non-empty (ex.: -DDB_NAME=database-name)";
 

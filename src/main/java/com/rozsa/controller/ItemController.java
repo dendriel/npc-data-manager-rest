@@ -1,7 +1,6 @@
 package com.rozsa.controller;
 
 import com.rozsa.business.ExportItems;
-import com.rozsa.business.ImportItems;
 import com.rozsa.dao.ItemDao;
 import com.rozsa.model.GenericItem;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,20 +19,6 @@ public class ItemController extends BaseController<GenericItem> {
         super(itemDao);
         this.itemDao = itemDao;
     }
-
-    @RequestMapping("/import")
-    public int importFromFile(@RequestBody String filePath) {
-        System.out.println("Import data into database from " + filePath);
-        ImportItems importItems = new ImportItems(itemDao, filePath);
-        return importItems.execute();
-    }
-//    @RequestMapping("/import")
-//    public int importFromFile() {
-//        String filePath = "E:\\workspace\\Java\\the-quest\\src\\com\\thequest\\resources\\data\\items_data.json";
-//        System.out.println("Import data into database from " + filePath);
-//        ImportItems importItems = new ImportItems(itemDao, filePath);
-//        return importItems.execute();
-//    }
 
     @RequestMapping("/export")
     public int exportToFile(@RequestBody String filePath) throws IOException {

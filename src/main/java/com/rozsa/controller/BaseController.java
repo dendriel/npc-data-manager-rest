@@ -1,6 +1,7 @@
 package com.rozsa.controller;
 
 import com.rozsa.dao.AbstractDao;
+import com.rozsa.dao.DataHolderImpl;
 import com.rozsa.dao.api.Identifiable;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,5 +49,25 @@ public abstract class BaseController<T extends Identifiable> {
         ObjectId id = new ObjectId(idAsText);
 
         return dao.deleteById(id);
+    }
+
+    @RequestMapping("/import")
+    public int importData(@RequestBody DataHolderImpl<T> holder) {
+        List<T> data = holder.getData();
+        if (data == null) {
+            System.out.println("Failed to create entries. Data is NULL.");
+            return -1;
+        }
+
+        System.out.println("Import data into database. Entries to be imported: " + data.size());
+
+        try {
+            dao.create(data);
+        } catch (Exception e) {
+            System.out.println("Failed to create entries. " + e.toString());
+            return -2;
+        }
+
+        return data.size();
     }
 }

@@ -1,7 +1,6 @@
 package com.rozsa.controller;
 
 import com.rozsa.business.ExportPassiveNpcs;
-import com.rozsa.business.ImportPassiveNpcs;
 import com.rozsa.dao.PassiveNpcDao;
 import com.rozsa.model.PassiveNpc;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +16,6 @@ public class PassiveNpcControler extends BaseController<PassiveNpc> {
     public PassiveNpcControler(PassiveNpcDao passiveNpcDao) {
         super(passiveNpcDao);
         this.passiveNpcDao = passiveNpcDao;
-    }
-
-    @RequestMapping("/import")
-    public int importFromFile(@RequestBody String filePath) {
-        System.out.println("Import data into database from " + filePath);
-        ImportPassiveNpcs importPassiveNpcs = new ImportPassiveNpcs(passiveNpcDao, filePath);
-        return importPassiveNpcs.execute();
     }
 
     @RequestMapping("/export")

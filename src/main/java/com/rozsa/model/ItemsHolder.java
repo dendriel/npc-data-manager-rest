@@ -44,6 +44,7 @@ public class ItemsHolder implements DataHolder<Item> {
         T execute(GenericItem item);
     }
 
+    @JsonIgnore
     public List<GoldItem> getGoldData() {
         return goldData;
     }
@@ -52,6 +53,7 @@ public class ItemsHolder implements DataHolder<Item> {
         this.goldData = goldData;
     }
 
+    @JsonIgnore
     public List<ValuableItem> getValuableItemsData() {
         return valuableItemsData;
     }
@@ -60,6 +62,7 @@ public class ItemsHolder implements DataHolder<Item> {
         this.valuableItemsData = valuableItemsData;
     }
 
+    @JsonIgnore
     public List<QuestItem> getQuestItemsData() {
         return questItemsData;
     }
@@ -68,6 +71,7 @@ public class ItemsHolder implements DataHolder<Item> {
         this.questItemsData = questItemsData;
     }
 
+    @JsonIgnore
     public List<WearableItem> getWearableItemsData() {
         return wearableItemsData;
     }
@@ -75,7 +79,7 @@ public class ItemsHolder implements DataHolder<Item> {
     public void setWearableItemsData(List<WearableItem> wearableItemsData) {
         this.wearableItemsData = wearableItemsData;
     }
-
+    @JsonIgnore
     public List<UsableItem> getUsableItemsData() {
         return usableItemsData;
     }
@@ -84,7 +88,7 @@ public class ItemsHolder implements DataHolder<Item> {
         this.usableItemsData = usableItemsData;
     }
 
-    @JsonIgnore
+
     public List<Item> getData() {
         List<Item> allItems = new ArrayList<>();
         allItems.addAll(goldData);
