@@ -1,5 +1,6 @@
 package com.rozsa.controller;
 
+import com.google.gson.Gson;
 import com.rozsa.dao.AbstractDao;
 import com.rozsa.dao.DataHolderImpl;
 import com.rozsa.dao.api.Identifiable;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -35,8 +38,8 @@ public abstract class BaseController<T extends Identifiable> {
     }
 
     @RequestMapping("/save")
-    public T save(@RequestBody T npc) {
-        return dao.save(npc);
+    public T save(@RequestBody T entity) {
+        return dao.save(entity);
     }
 
     @RequestMapping("/delete")
@@ -78,5 +81,26 @@ public abstract class BaseController<T extends Identifiable> {
         }
 
         return data.size();
+    }
+
+    @RequestMapping("/export")
+    public void exportData(HttpServletResponse response) {
+        System.out.println("Export data from database.");
+        List<T> entities = dao.findAll();
+        DataHolderImpl<T> holder = new DataHolderImpl<>();
+        holder.setData(entities);
+
+        try {
+            Gson gson = new Gson();
+            String rawData = gson.toJson(holder);
+            byte[] data = rawData.getBytes();
+
+            response.setContentLength(data.length);
+            response.setContentType("application/json");
+            response.getOutputStream().write(data);
+
+        } catch (IOException e) {
+            System.out.println("Failed to export data.");
+        }
     }
 }
