@@ -4,6 +4,7 @@ import com.rozsa.dao.AbstractDao;
 import com.rozsa.dao.DataHolderImpl;
 import com.rozsa.dao.api.Identifiable;
 import org.bson.types.ObjectId;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,6 +50,14 @@ public abstract class BaseController<T extends Identifiable> {
         ObjectId id = new ObjectId(idAsText);
 
         return dao.deleteById(id);
+    }
+
+    @PostMapping("/deleteAll")
+    public int deleteAllById(@RequestBody List<String> textIds) {
+        // TODO: improve this.
+        textIds.forEach(this::delete);
+
+        return textIds.size();
     }
 
     @RequestMapping("/import")
