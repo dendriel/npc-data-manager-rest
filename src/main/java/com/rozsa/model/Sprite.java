@@ -3,7 +3,7 @@ package com.rozsa.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Sprite {
-    private String imageFile;
+    private Resource resource;
     private int order;
     private Offset offset;
     private Scale scale;
@@ -19,12 +19,12 @@ public class Sprite {
         order = 0;
     }
 
-    public String getImageFile() {
-        return imageFile;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setImageFile(String imageFile) {
-        this.imageFile = imageFile;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public int getOrder() {

@@ -1,15 +1,15 @@
 package com.rozsa.model;
 
 public class Icon {
-    private String imageFile;
+    private Resource resource;
     private Rect rect;
 
-    public String getImageFile() {
-        return imageFile;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setImageFile(String imageFile) {
-        this.imageFile = imageFile;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public Rect getRect() {
@@ -31,7 +31,7 @@ public class Icon {
             return false;
         }
 
-        boolean isEqual = imageFile.equals(other.getImageFile());
+        boolean isEqual = resource.getStorageId().equals(other.resource.getStorageId());
         isEqual &= rect.equals(other.getRect());
         return isEqual;
     }
