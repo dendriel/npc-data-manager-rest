@@ -1,4 +1,4 @@
-package com.rozsa.filters;
+package com.rozsa.security.filters;
 
 import com.rozsa.security.DbUserDetailsService;
 import com.rozsa.util.JwtUtil;

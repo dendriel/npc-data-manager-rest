@@ -1,4 +1,4 @@
-package com.rozsa.filters;
+package com.rozsa.security.filters;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;

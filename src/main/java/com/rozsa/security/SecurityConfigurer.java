@@ -1,8 +1,6 @@
 package com.rozsa.security;
 
-import com.rozsa.filters.HealthcheckFilter;
-import com.rozsa.filters.JwtRequestFilter;
-import com.rozsa.filters.PreFlightFilter;
+import com.rozsa.security.filters.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
