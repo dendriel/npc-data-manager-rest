@@ -1,5 +1,6 @@
 package com.rozsa.security;
 
+import com.rozsa.filters.HealthcheckFilter;
 import com.rozsa.filters.JwtRequestFilter;
 import com.rozsa.filters.PreFlightFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private JwtRequestFilter jwtRequestFilter;
     @Autowired
     private PreFlightFilter preFlightFilter;
+    @Autowired
+    private HealthcheckFilter healthcheckFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -37,7 +40,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(healthcheckFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, HealthcheckFilter.class);
         http.addFilterBefore(preFlightFilter, JwtRequestFilter.class);
     }
 
