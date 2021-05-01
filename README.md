@@ -1,5 +1,7 @@
 # npc-data-manager-rest
-Spring framework crud-based backend using mongo-db. Features:
+Spring framework crud-based backend using mongo-db.
+
+Features:
 
 - POJO based mongo interaction - we don't need to map each field from an object when writing
 or reading from mongo. MongoConnection class abstracts this parsing and is generic;
