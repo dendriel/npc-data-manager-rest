@@ -9,7 +9,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                gradlew('test')
+//                 gradlew('test')
+                sh './gradlew.bat test'
             }
             post {
                 always {
