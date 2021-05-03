@@ -18,6 +18,21 @@ pipeline {
                 }
             }
         }
+        stage('Create Image') {
+            steps {
+                docker.build("dendriel/npc-data-manager-rest")
+            }
+        }
+
+       stage('Push image') {
+           steps {
+               docker.withRegistry('https://registry.hub.docker.com', 'git') {
+                   app.push("${env.BUILD_NUMBER}")
+                   app.push("latest")
+               }
+           }
+       }
+
         stage('Release') {
             steps {
                 sh "echo releasing new version"
