@@ -1,57 +1,32 @@
 package com.rozsa.security;
 
 import com.rozsa.security.filters.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import lombok.AllArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
+@AllArgsConstructor
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DbUserDetailsService userDetailsService;
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
-    @Autowired
-    private PreFlightFilter preFlightFilter;
-    @Autowired
-    private HealthcheckFilter healthcheckFilter;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
+    private final PreFlightFilter preFlightFilter;
+    private final HealthcheckFilter healthcheckFilter;
+    private final AuthFilter authFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/rest/authenticate").permitAll()
                 .anyRequest().authenticated()
-                .and().sessionManagement()
+                .and()
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.addFilterBefore(healthcheckFilter, UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(jwtRequestFilter, HealthcheckFilter.class);
-        http.addFilterBefore(preFlightFilter, JwtRequestFilter.class);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        // BCrypt includes the salt inside the resulting string https://en.wikipedia.org/wiki/Bcrypt
-        return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
+        http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(healthcheckFilter, AuthFilter.class);
+        http.addFilterBefore(preFlightFilter, HealthcheckFilter.class);
     }
 }
