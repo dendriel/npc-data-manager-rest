@@ -13,20 +13,22 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     private final PreFlightFilter preFlightFilter;
-    private final HealthcheckFilter healthcheckFilter;
     private final AuthFilter authFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
+        http.csrf()
+                .disable()
+            .authorizeRequests()
+                .antMatchers("/actuator/health")
+                    .permitAll()
+                .anyRequest()
+                    .authenticated()
+            .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
-        http.addFilterBefore(healthcheckFilter, AuthFilter.class);
-        http.addFilterBefore(preFlightFilter, HealthcheckFilter.class);
+        http.addFilterBefore(preFlightFilter, AuthFilter.class);
     }
 }

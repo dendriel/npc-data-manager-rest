@@ -8,7 +8,7 @@ or reading from mongo. MongoConnection class abstracts this parsing and is gener
 getAll, getById, save and delete;
 - Import and export infra (ImportHolder, JsonReader and JsonWriter) so we can boot the dataset if
 there is any available external data source;
-- JWT authentication (user: foo; pass: foo).
+- JWT authentication.
 
 
 # VM Options

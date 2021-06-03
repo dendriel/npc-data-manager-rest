@@ -32,7 +32,7 @@ public class AuthFilter extends OncePerRequestFilter {
 
         UserDetails userDetails = authService.validate(jwt);
         if (userDetails == null) {
-            res.setStatus(401);
+            chain.doFilter(req, res);
             return;
         }
 
