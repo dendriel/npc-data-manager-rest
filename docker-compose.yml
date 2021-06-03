@@ -9,15 +9,10 @@ services:
         working_dir: /app
         environment:
             - MONGO_DB_NAME=npcdata
-            - MONGO_DB_HOST=ip-172-31-13-193.sa-east-1.compute.internal
+            - MONGO_DB_HOST=locahost
             - MONGO_DB_PORT=27017
             - MONGO_DB_USER=root
             - MONGO_DB_PASS=pass
-            - MYSQL_DB=the_quest
-            - MYSQL_HOST=10.10.10.5
-            - MYSQL_PORT=3306
-            - MYSQL_USER=root
-            - MYSQL_PASS=password
     storage-app:
         image: dendriel/npc-data-manager-storage:latest
         command: "java -jar /npc-data-manager-storage.jar"
