@@ -1,8 +1,7 @@
 package com.rozsa.security.filters;
 
-import com.rozsa.service.api.AuthService;
+import com.rozsa.service.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

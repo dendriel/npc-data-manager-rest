@@ -1,7 +1,7 @@
-package com.rozsa.service;
+package com.rozsa.service.impl;
 
 import com.rozsa.property.AuthProperties;
-import com.rozsa.service.api.AuthService;
+import com.rozsa.service.AuthService;
 import com.rozsa.util.HeaderUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;

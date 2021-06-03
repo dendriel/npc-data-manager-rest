@@ -1,4 +1,4 @@
-package com.rozsa.service.api;
+package com.rozsa.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
