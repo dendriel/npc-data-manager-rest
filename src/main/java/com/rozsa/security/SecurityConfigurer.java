@@ -22,8 +22,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/actuator/health")
                     .permitAll()
-                .anyRequest()
-                    .authenticated()
+//                .anyRequest()
+//                    .authenticated()
             .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -23,22 +23,22 @@ public class AuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {
-        final String authHeader = req.getHeader("Authorization");
-        String jwt = null;
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            jwt = authHeader.substring(7);
-        }
-
-        UserDetails userDetails = authService.validate(jwt);
-        if (userDetails == null) {
-            chain.doFilter(req, res);
-            return;
-        }
-
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
-
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+//        final String authHeader = req.getHeader("Authorization");
+//        String jwt = null;
+//        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+//            jwt = authHeader.substring(7);
+//        }
+//
+//        UserDetails userDetails = authService.validate(jwt);
+//        if (userDetails == null) {
+//            chain.doFilter(req, res);
+//            return;
+//        }
+//
+//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+//        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
+//
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
 
         chain.doFilter(req, res);
     }

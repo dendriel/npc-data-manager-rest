@@ -1,9 +1,11 @@
 package com.rozsa.controller;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rozsa.dao.AbstractDao;
 import com.rozsa.dao.DataHolderImpl;
+import com.rozsa.dao.api.DataHolder;
 import com.rozsa.dao.api.Identifiable;
+import com.rozsa.model.Item;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +18,7 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 public abstract class BaseController<T extends Identifiable> {
-    private final AbstractDao<T> dao;
+    protected final AbstractDao<T> dao;
 
     BaseController(AbstractDao<T> dao) {
         this.dao = dao;
@@ -87,13 +89,11 @@ public abstract class BaseController<T extends Identifiable> {
     public void exportData(HttpServletResponse response) {
         System.out.println("Export data from database.");
         List<T> entities = dao.findAll();
-        DataHolderImpl<T> holder = new DataHolderImpl<>();
-        holder.setData(entities);
+        DataHolder<T> holder = createDataHolder(entities);
 
         try {
-            Gson gson = new Gson();
-            String rawData = gson.toJson(holder);
-            byte[] data = rawData.getBytes();
+            ObjectMapper mapper = new ObjectMapper();
+            byte[] data = mapper.writeValueAsBytes(holder);
 
             response.setContentLength(data.length);
             response.setContentType("application/json");
@@ -102,5 +102,9 @@ public abstract class BaseController<T extends Identifiable> {
         } catch (IOException e) {
             System.out.println("Failed to export data.");
         }
+    }
+
+    public DataHolder<T> createDataHolder(List<T> entities) {
+        return new DataHolderImpl<>(entities);
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemsHolder implements DataHolder<Item> {
+public class ItemsHolder implements DataHolder<GenericItem> {
     private List<GoldItem> goldData;
 
     private List<ValuableItem> valuableItemsData;
@@ -44,7 +44,7 @@ public class ItemsHolder implements DataHolder<Item> {
         T execute(GenericItem item);
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public List<GoldItem> getGoldData() {
         return goldData;
     }
@@ -53,7 +53,7 @@ public class ItemsHolder implements DataHolder<Item> {
         this.goldData = goldData;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public List<ValuableItem> getValuableItemsData() {
         return valuableItemsData;
     }
@@ -62,7 +62,7 @@ public class ItemsHolder implements DataHolder<Item> {
         this.valuableItemsData = valuableItemsData;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public List<QuestItem> getQuestItemsData() {
         return questItemsData;
     }
@@ -71,7 +71,7 @@ public class ItemsHolder implements DataHolder<Item> {
         this.questItemsData = questItemsData;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public List<WearableItem> getWearableItemsData() {
         return wearableItemsData;
     }
@@ -79,7 +79,7 @@ public class ItemsHolder implements DataHolder<Item> {
     public void setWearableItemsData(List<WearableItem> wearableItemsData) {
         this.wearableItemsData = wearableItemsData;
     }
-    @JsonIgnore
+//    @JsonIgnore
     public List<UsableItem> getUsableItemsData() {
         return usableItemsData;
     }
@@ -88,14 +88,15 @@ public class ItemsHolder implements DataHolder<Item> {
         this.usableItemsData = usableItemsData;
     }
 
-
-    public List<Item> getData() {
-        List<Item> allItems = new ArrayList<>();
-        allItems.addAll(goldData);
-        allItems.addAll(valuableItemsData);
-        allItems.addAll(questItemsData);
-        allItems.addAll(wearableItemsData);
-        allItems.addAll(usableItemsData);
+    @JsonIgnore
+    public List<GenericItem> getData() {
+        // use this instead of individual data getters when the-quest is able to handle a "all-data" holder"
+        List<GenericItem> allItems = new ArrayList<>();
+//        allItems.addAll(goldData);
+//        allItems.addAll(valuableItemsData);
+//        allItems.addAll(questItemsData);
+//        allItems.addAll(wearableItemsData);
+//        allItems.addAll(usableItemsData);
 
         return allItems;
     }

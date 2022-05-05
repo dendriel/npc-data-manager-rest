@@ -20,6 +20,10 @@ public class Icon {
         this.rect = rect;
     }
 
+    public String getImageFile() {
+        return resource != null ? resource.getName() : "";
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (super.equals(obj)) {

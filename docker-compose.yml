@@ -9,7 +9,7 @@ services:
         working_dir: /app
         environment:
             - MONGO_DB_NAME=npcdata
-            - MONGO_DB_HOST=locahost
+            - MONGO_DB_HOST=localhost
             - MONGO_DB_PORT=27017
             - MONGO_DB_USER=root
             - MONGO_DB_PASS=pass

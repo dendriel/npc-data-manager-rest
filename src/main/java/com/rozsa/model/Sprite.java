@@ -19,6 +19,7 @@ public class Sprite {
         order = 0;
     }
 
+//    @JsonIgnore
     public Resource getResource() {
         return resource;
     }
@@ -86,5 +87,9 @@ public class Sprite {
 
     public void setFlipY(boolean flipY) {
         isFlipY = flipY;
+    }
+
+    public String getImageFile() {
+        return resource != null ? resource.getName() : "";
     }
 }
