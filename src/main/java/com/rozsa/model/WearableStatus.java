@@ -1,5 +1,8 @@
 package com.rozsa.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WearableStatus {
     private int minAttack;
     private int maxAttack;
@@ -15,6 +18,7 @@ public class WearableStatus {
     private int life;
     private int mana;
     private int inventorySlots;
+    private List<PersistentStatusModifier> persistentStatusModifiers;
 
     public int getDefense() {
         return defense;
@@ -126,5 +130,13 @@ public class WearableStatus {
 
     public void setInventorySlots(int inventorySlots) {
         this.inventorySlots = inventorySlots;
+    }
+
+    public List<PersistentStatusModifier> getPersistentStatusModifiers() {
+        return persistentStatusModifiers;
+    }
+
+    public void setPersistentStatusModifiers(List<PersistentStatusModifier> persistentStatusModifiers) {
+        this.persistentStatusModifiers = persistentStatusModifiers;
     }
 }
