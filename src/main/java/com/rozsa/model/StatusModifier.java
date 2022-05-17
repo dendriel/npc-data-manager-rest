@@ -1,35 +1,20 @@
 package com.rozsa.model;
 
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
 public class StatusModifier {
     private int lifeModifier;
-
     private int manaModifier;
-
     private int skillModifier;
+    private List<PersistentStatusModifier> applyPersistentStatusModifiers;
+    private List<PersistentStatusModifier> removePersistentStatusModifiers;
 
-    public StatusModifier() {}
-
-    public int getLifeModifier() {
-        return lifeModifier;
-    }
-
-    public void setLifeModifier(int lifeModifier) {
-        this.lifeModifier = lifeModifier;
-    }
-
-    public int getManaModifier() {
-        return manaModifier;
-    }
-
-    public void setManaModifier(int manaModifier) {
-        this.manaModifier = manaModifier;
-    }
-
-    public int getSkillModifier() {
-        return skillModifier;
-    }
-
-    public void setSkillModifier(int skillModifier) {
-        this.skillModifier = skillModifier;
+    public StatusModifier() {
+        applyPersistentStatusModifiers = new ArrayList<>();
+        removePersistentStatusModifiers = new ArrayList<>();
     }
 }
