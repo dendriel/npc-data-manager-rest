@@ -11,4 +11,6 @@ public enum InteractionType {
     REMOVE_QUEST_ITEM,
     CONTAINER,
     CHANGE_HERO_SPRITE,
+    ACTIVATE_NPC,
+    DEACTIVATE_NPC,
 }
